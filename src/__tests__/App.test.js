@@ -6,6 +6,7 @@ import CitySearch from '../CitySearch';
 import NumberOfEvents from '../NumberOfEvents';
 import { mockData } from '../mock-data';
 import { extractLocations, getEvents } from '../api';
+import { waitFor } from '@testing-library/react';
 
 describe('<App /> component', () => {
   let AppWrapper;
@@ -62,5 +63,34 @@ describe('App /> integration', () => {
     expect(AppWrapper.state('events')).toEqual(allEvents);
     AppWrapper.unmount();
   });
+
+  test('"numberDisplyed" state of app is updated after user changes number input', () => {
+    const AppWrapper = mount(<App />);
+    AppWrapper.setState({ numberDisplayed: "32" });
+
+    const eventObject = { target: { value: "10" } };
+    const NumberOfEventsComponent = AppWrapper.find(NumberOfEvents);
+    NumberOfEventsComponent.find(".event-number-input").simulate('change', eventObject);
+
+    expect(AppWrapper.state("numberDisplayed")).toBe("10");
+    AppWrapper.unmount();
+  });
+
+  test("events.length updated after user changed input value", async () => {
+    const AppWrapper = mount(<App />);
+    AppWrapper.setState({ numberDisplayed: "32", locations: "all" });
+
+    const eventObject = { target: { value: 1 } };
+    const NumberOfEventsComponent = AppWrapper.find(NumberOfEvents);
+    await NumberOfEventsComponent.find(".event-number-input").simulate("change", eventObject);
+
+    await waitFor(() => {
+      AppWrapper.update();
+      expect(AppWrapper.state("events").length).toBe(1);
+    });
+    AppWrapper.unmount();
+  });
+
+
 
 });
