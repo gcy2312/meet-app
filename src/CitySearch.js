@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Form from 'react-bootstrap/Form';
+import { ListGroup } from 'react-bootstrap';
 
 class CitySearch extends Component {
   state = {
@@ -23,31 +25,33 @@ class CitySearch extends Component {
       query: suggestion,
       showSuggestions: false
     });
-    this.props.updateEvents(suggestion);
+    this.props.updateEvents(suggestion, this.props.numberDisplayed);
   }
 
   render() {
     return (
       <div className="CitySearch">
-        <label>Filter Events By City</label>
-        <input
-          type="text"
-          className="city"
-          value={this.state.query}
-          onChange={this.handleInputChanged}
-          onFocus={() => { this.setState({ showSuggestions: true }) }}
-        />
-        <ul className="suggestions" style={this.state.showSuggestions ? {} : { display: 'none' }}>
-          {this.state.suggestions.map((suggestion) => (
-            <li
-              key={suggestion}
-              onClick={() => this.handleItemClicked(suggestion)}
-            >{suggestion}</li>
-          ))}
-          <li onClick={() => { this.handleItemClicked("all") }}>
-            <b>See all cities</b>
-          </li>
-        </ul>
+        <Form>
+          <Form.Label>Filter Events By City</Form.Label>
+          <input
+            type="text"
+            className="city"
+            value={this.state.query}
+            onChange={this.handleInputChanged}
+            onFocus={() => { this.setState({ showSuggestions: true }) }}
+          />
+          <ul className="suggestions" style={this.state.showSuggestions ? {} : { display: 'none' }}>
+            {this.state.suggestions.map((suggestion) => (
+              <li
+                key={suggestion}
+                onClick={() => this.handleItemClicked(suggestion)}
+              >{suggestion}</li>
+            ))}
+            <li onClick={() => { this.handleItemClicked("all") }}>
+              <b>See all cities</b>
+            </li>
+          </ul>
+        </Form>
       </div>
     );
   }
