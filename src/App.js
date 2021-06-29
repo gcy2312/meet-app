@@ -6,22 +6,44 @@ import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
 import { extractLocations, getEvents } from './api';
 
+import Row from 'react-bootstrap/Row';
+
 class App extends Component {
 
   state = {
     events: [],
     locations: [],
     numberDisplayed: 32,
-    // currentLocation: 'all',
+    currentCity: "all",
+  }
+
+  updateEvents = (location, numberDisplayed) => {
+    getEvents().then((events) => {
+      const locationEvents = (location === 'all') ? events
+        :
+        events.filter((event) => event.location === location);
+      if (this.mounted) {
+        this.setState({
+          events: locationEvents.slice(0, numberDisplayed),
+          currentCity: location,
+        });
+      }
+    });
+  };
+
+  updateNumberOfEvents(number) {
+    this.setState({ numberDisplayed: number });
+    const { currentCity } = this.state;
+    this.updateEvents(currentCity, number);
   }
 
   componentDidMount() {
-    this.mounted = true;
     const { numberDisplayed } = this.state;
+    this.mounted = true;
     getEvents().then((events) => {
       if (this.mounted) {
         this.setState({
-          events,
+          events: events.slice(0, numberDisplayed),
           locations: extractLocations(events)
         });
       }
@@ -32,24 +54,24 @@ class App extends Component {
     this.mounted = false;
   }
 
-  updateEvents = (location) => {
-    getEvents().then((events) => {
-      const locationEvents = (location === 'all') ? events
-        :
-        events.filter((event) => event.location === location);
-      this.setState({
-        events: locationEvents,
-        currentLocation: location
-      });
-    });
-  }
-
   render() {
     return (
       <div className="App">
-        <NumberOfEvents />
-        <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
-        <EventList events={this.state.events} />
+
+        <h1>Meet Up</h1>
+
+        <CitySearch
+          locations={this.state.locations}
+          updateEvents={this.updateEvents}
+          updateNumberOfEvents={this.updateNumberOfEvents} />
+
+        <NumberOfEvents
+          updateNumberOfEvents={(e) => this.updateNumberOfEvents(e)} />
+
+        <EventList
+          events={this.state.events} />
+
+
       </div>
 
     );
