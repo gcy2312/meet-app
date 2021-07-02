@@ -34,8 +34,11 @@ class Event extends Component {
               <Card.Subtitle><b>Creator: </b>{event.creator.email}</Card.Subtitle>
               <Card.Text><b>Start Time: </b>{event.start.dateTime}</Card.Text>
               <Card.Text><b>Location: </b>{event.location}</Card.Text>
-              <Card.Text className="description">{this.description(event)}</Card.Text>
+              {this.state.showMore === true && (
+                <Card.Text className="EventDetails">{this.description(event)}</Card.Text>
+              )}
               <br />
+
 
               <Button variant="primary" className="details-btn" onClick={() => { this.showMore() }}>{this.showText()}</Button>
 
