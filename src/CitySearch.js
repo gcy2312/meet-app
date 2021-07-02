@@ -43,11 +43,15 @@ class CitySearch extends Component {
           <ul className="suggestions" style={this.state.showSuggestions ? {} : { display: 'none' }}>
             {this.state.suggestions.map((suggestion) => (
               <li
+                className="matchSuggestion"
                 key={suggestion}
                 onClick={() => this.handleItemClicked(suggestion)}
               >{suggestion}</li>
             ))}
-            <li onClick={() => { this.handleItemClicked("all") }}>
+            <li
+              className="seeAll"
+              key="all"
+              onClick={() => { this.handleItemClicked("all") }}>
               <b>See all cities</b>
             </li>
           </ul>
