@@ -8,6 +8,10 @@
   box-sizing: border-box;
 }
 
+h1{
+  padding: 20px;
+}
+
 ul {
   padding: 0;
   list-style: none;
@@ -15,6 +19,10 @@ ul {
 
 p {
   margin: 5px 0;
+}
+
+label{
+  font-size: 16px;
 }
 
 .display-none {
@@ -36,17 +44,24 @@ input[type="number"] {
   height: 38px;
 }
 
-.city {
+.city, .event-number-input {
   width: 250px;
 }
 
-.CitySearch {
+.CitySearch, .NumberOfEvents {
   display: flex;
   flex-direction: column;
   flex-basis: 300px; 
-  max-width: 300px;
+  max-width: 700px;
   margin: auto;
-  position: relative;  
+  margin-top: 20px;
+  margin-bottom: 20px;
+  position: relative;
+  width: 250px;  
+}
+
+h2{
+  margin-top: 10px;
 }
 
 .suggestions {
@@ -54,8 +69,8 @@ input[type="number"] {
   position: absolute;
   z-index: 2;
   align-self: center;
-  margin: 0;
-  top: 43px;
+  margin: 10;
+  /* top: 60px; */
   font-size: 14px;
   box-shadow: 10px 10px 16px -12px rgba(0, 0, 0, 0.75);
 }
@@ -86,7 +101,8 @@ input[type="number"] {
 }
 
 .details-btn {
-  position: absolute;
+  /* position: absolute; */
+  position:initial;
   right: 5px;
   bottom: 5px;
   padding: 5px 8px;
@@ -121,6 +137,7 @@ input[type="number"] {
   display:inline;
 }
 
+
 .button-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -130,8 +147,14 @@ input[type="number"] {
 }
 
 .Alert {
-  position: fixed;
-  top: 20px;
+  left: 0;
+  right: 0;
+  height: 0;
+}
+.alert-message{
+  margin: 1px;
+  font-size: 13px;
+  position:fixed;
 }
 
 .data-vis-wrapper {
