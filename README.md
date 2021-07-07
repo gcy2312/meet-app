@@ -68,3 +68,20 @@ FEATURE 5: DATA VISUALIZATION
 Scenario 1: Show a chart with the number of upcoming events in each city.
 	User Story: As a [user], I should be able to [load a variable chart], when [user opens modal for chart with events for that city]
 	Gherkin: Given [list of upcoming events has been loaded], when [user clicks modal for chart of upcoming events in each city], then [modal with chart showing number of upcoming events in each city is loaded] 
+
+
+DevDependencies: 
+gh-pages 3.1.0
+enzyme
+legacy-peer-deps @wojtekmaj/enzyme-adapter-react-17
+cucumber
+puppeteer
+
+Dependencies:
+create-react-app "" cra-template-pwa
+serverless (global)
+googleapis@59.0.0(auth-server)
+http-server (global)
+axios
+nprogress
+atatus-spa
