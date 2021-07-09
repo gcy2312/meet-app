@@ -5,6 +5,7 @@ import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
 import { extractLocations, getEvents } from './api';
+import { WarningAlert } from './Alert';
 
 import Row from 'react-bootstrap/Row';
 
@@ -40,6 +41,16 @@ class App extends Component {
   componentDidMount() {
     const { numberDisplayed } = this.state;
     this.mounted = true;
+
+    if (!navigator.onLine) {
+      this.setState({
+        warningText: 'You are currently using app offline. Events may be out of date.',
+      });
+    } else {
+      this.setState({
+        warningText: '',
+      });
+    }
     getEvents().then((events) => {
       if (this.mounted) {
         this.setState({
@@ -59,6 +70,8 @@ class App extends Component {
       <div className="App">
 
         <h1>Meet Up</h1>
+
+        <WarningAlert text={this.warningText} />
 
         <CitySearch
           locations={this.state.locations}
