@@ -4,11 +4,15 @@ class Alert extends Component {
   constructor(props) {
     super(props);
     this.color = null;  //children will override later
+    this.fontWeight = '600';
+    this.fontSize = '1rem';
   }
 
   getStyle = () => {
     return {
       color: this.color,
+      fontWeight: this.fontWeight,
+      fontSize: this.fontSize,
     };
   }
 
@@ -35,5 +39,13 @@ class ErrorAlert extends Alert {
   }
 }
 
+class WarningAlert extends Alert {
+  constructor(props) {
+    super(props);
+    this.color = 'orange';
+  }
+}
+
 export { InfoAlert };
 export { ErrorAlert };
+export { WarningAlert };
