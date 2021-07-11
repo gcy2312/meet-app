@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { InfoAlert } from './Alert';
 
-import Form from 'react-bootstrap/Form';
-import { ListGroup } from 'react-bootstrap';
+import { InputGroup } from 'react-bootstrap';
+import { FormControl } from 'react-bootstrap';
+
+import cityImg from './assets/buildings.png';
 
 class CitySearch extends Component {
   state = {
@@ -44,33 +46,55 @@ class CitySearch extends Component {
   render() {
     return (
       <div className="CitySearch">
-        {/* <InfoAlert text={this.state.infoText} /> */}
-        <Form>
-          <Form.Label>Filter Events By City: </Form.Label>
-          <InfoAlert text={this.state.infoText} /><br />
-          <input
+
+        <InfoAlert id="info-alert" text={this.state.infoText} />
+
+        <InputGroup className="mb-3 align-center">
+          <InputGroup.Prepend>
+            <img id="cityImg"
+              alt=""
+              src={cityImg}
+              width="35"
+              height="35"
+              fluid="true"
+            />
+            {/* <EditLocationIcon /> */}
+          </InputGroup.Prepend>
+          <FormControl
+            placeholder="Filter events by city"
+            aria-label="Search for events by city"
+            aria-describedby="basic-addon1"
             type="text"
             className="city"
             value={this.state.query}
             onChange={this.handleInputChanged}
             onFocus={() => { this.setState({ showSuggestions: true }) }}
+
           />
-          <ul className="suggestions" style={this.state.showSuggestions ? {} : { display: 'none' }}>
-            {this.state.suggestions.map((suggestion) => (
-              <li
-                className="matchSuggestion"
-                key={suggestion}
-                onClick={() => this.handleItemClicked(suggestion)}
-              >{suggestion}</li>
-            ))}
+        </InputGroup>
+
+        <ul
+          className="suggestions w-100 flex-column align-items-center"
+          style={this.state.showSuggestions
+            ? { display: 'flex' }
+            : { display: 'none' }}>
+          {this.state.suggestions.map((suggestion) => (
             <li
-              className="seeAll"
-              key="all"
-              onClick={() => { this.handleItemClicked("all") }}>
-              <b>See all cities</b>
-            </li>
-          </ul>
-        </Form>
+              className="matchSuggestion"
+              key={suggestion}
+              onClick={() => this.handleItemClicked(suggestion)}
+            >{suggestion}</li>
+          ))}
+          <li
+            className="seeAll"
+            key="all"
+            onClick={() => { this.handleItemClicked("all") }}>
+            <b>See all cities</b>
+          </li>
+        </ul>
+
+        <br />
+
       </div>
     );
   }
