@@ -9,7 +9,12 @@ import { getEvents, extractLocations, checkToken, getAccessToken } from
   './api';
 import { WarningAlert } from './Alert';
 
+import logo from './assets/DevCalLogo.png';
+
 import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
+import Container from 'react-bootstrap/Container';
 
 class App extends Component {
 
@@ -83,27 +88,44 @@ class App extends Component {
 
     return (
       <div className="App">
-        <WarningAlert text={this.warningText} />
 
-        <h1>Meet Up</h1>
+        <Container fluid>
+          <Row className="justify-content-md-center">
 
+            <Col xs={12}>
+              <img src={logo} alt='logo' className='logo-web' />
+            </Col>
+            <br />
 
+            <Col xs={12} md={12}>
+              <br />
 
-        <CitySearch
-          locations={this.state.locations}
-          updateEvents={this.updateEvents}
-          updateNumberOfEvents={this.updateNumberOfEvents} /><br />
+              <h5 id="city-header">Check out upcoming Web Development events near you!</h5>
+              <WarningAlert text={this.warningText} />
+              <br />
 
-        <NumberOfEvents
-          updateNumberOfEvents={(e) => this.updateNumberOfEvents(e)} /><br />
+              <CitySearch
+                locations={this.state.locations}
+                updateEvents={this.updateEvents}
+                updateNumberOfEvents={this.updateNumberOfEvents} />
 
-        <EventList
-          events={this.state.events} />
+              <NumberOfEvents
+                updateNumberOfEvents={(e) => this.updateNumberOfEvents(e)} /><br />
+
+            </Col>
+
+            <div className="eventList-container h-75 overflow-scroll">
+              <EventList
+                events={this.state.events} />
+            </div>
+          </Row>
+
+        </Container>
 
         <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen}
           getAccessToken={() => { getAccessToken() }} />
 
-      </div>
+      </div >
 
     );
   }
