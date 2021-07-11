@@ -18,7 +18,6 @@ class App extends Component {
     locations: [],
     numberDisplayed: 32,
     currentCity: "all",
-    networkStatus: navigator.onLine ? 'Online' : 'Offline',
     showWelcomeScreen: undefined,
   }
 
@@ -51,6 +50,17 @@ class App extends Component {
     const searchParams = new URLSearchParams(window.location.search);
     const code = searchParams.get("code");
     this.setState({ showWelcomeScreen: !(code || isTokenValid) });
+
+    if (!navigator.onLine) {
+      this.setState({
+        warningText: 'You are currently using the app offline. Events may be out of date.'
+      });
+    } else {
+      this.setState({
+        warningText: '',
+      });
+    }
+
     if ((code || isTokenValid) && this.mounted) {
       getEvents().then((events) => {
         if (this.mounted) {
@@ -70,12 +80,10 @@ class App extends Component {
   render() {
     if (this.state.showWelcomeScreen === undefined) return <div
       className="App" />
-    const { networkStatus } = this.state;
+
     return (
       <div className="App">
-        <WarningAlert text={networkStatus === 'Offline'
-          ? 'App is running offline: data may be out of date'
-          : ''} />
+        <WarningAlert text={this.warningText} />
 
         <h1>Meet Up</h1>
 
