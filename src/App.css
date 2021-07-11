@@ -6,10 +6,8 @@
 
 .App * {
   box-sizing: border-box;
-}
-
-h1{
-  padding: 20px;
+  background-color: #202933;
+  color:white;
 }
 
 ul {
@@ -19,10 +17,6 @@ ul {
 
 p {
   margin: 5px 0;
-}
-
-label{
-  font-size: 16px;
 }
 
 .display-none {
@@ -35,33 +29,29 @@ label{
 input[type="text"],
 input[type="number"] {
   padding: 8px 6px 8px 10px;
-  border-radius: 4px;
+  border-radius: 6px;
   outline: none;
-  border: 1px solid #ccc;
+  border: 2px solid white;
   font-size: 14px;
   line-height: 20px;
   align-self: center;
   height: 38px;
 }
+.pe-2{
+  font-size: 13px;
+}
 
-.city, .event-number-input {
+.city {
   width: 250px;
 }
 
-.CitySearch, .NumberOfEvents {
+.CitySearch {
   display: flex;
   flex-direction: column;
-  flex-basis: 300px; 
-  max-width: 700px;
+  flex-basis: 300px;
+  max-width: 300px;
   margin: auto;
-  margin-top: 20px;
-  margin-bottom: 20px;
   position: relative;
-  width: 250px;  
-}
-
-h2{
-  margin-top: 10px;
 }
 
 .suggestions {
@@ -69,8 +59,8 @@ h2{
   position: absolute;
   z-index: 2;
   align-self: center;
-  margin: 10;
-  /* top: 60px; */
+  margin: 0;
+  top: 43px;
   font-size: 14px;
   box-shadow: 10px 10px 16px -12px rgba(0, 0, 0, 0.75);
 }
@@ -78,7 +68,7 @@ h2{
 .suggestions > li {
   text-align: left;
   padding: 8px 6px 8px 10px;
-  background-color: #eee;
+  /* background-color: #eee; */
   cursor: default;
 }
 
@@ -88,27 +78,43 @@ h2{
 }
 
 .suggestions > li:hover {
-  background-color: #bcdcdb;
+  font-weight:bolder;
 }
 
 .event {
-  padding: 10px 10px 35px;
+  padding: 15px 15px 15px;
   margin-bottom: 10px;
   text-align: left;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 2px solid #546e85;
+  border-radius: 6px;
   position: relative;
+  background-color: #546e85;
+}
+
+#event-card{
+  padding: 5px;
 }
 
 .details-btn {
-  /* position: absolute; */
-  position:initial;
+  position: absolute;
   right: 5px;
   bottom: 5px;
-  padding: 5px 8px;
-  border-radius: 4px;
+  /* padding: 5px 8px; */
+  /* border-radius: 4px; */
   outline: none;
   cursor: pointer;
+}
+
+#link:hover, #card-title, a:hover{
+  color: #44ddd1;
+}
+#card-title{
+  font-size: 22px;
+}
+
+
+#cityImg{
+  padding: 3px;
 }
 
 .name {
@@ -130,13 +136,11 @@ h2{
   overflow-x: hidden;
 }
 
-.NumberOfEvents {
+.numberOfEvents {
   width: 200px;
-  margin: 20px auto;
+  /* margin: 20px auto; */
   text-align: center;
-  display:inline;
 }
-
 
 .button-wrapper {
   display: grid;
@@ -147,15 +151,9 @@ h2{
 }
 
 .Alert {
-  left: 0;
-  right: 0;
-  height: 0;
-}
-.alert-message{
-  margin: 1px;
   font-size: 13px;
-  position:fixed;
 }
+
 
 .data-vis-wrapper {
   display: flex;
