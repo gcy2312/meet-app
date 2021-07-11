@@ -93,8 +93,6 @@ class CitySearch extends Component {
           </li>
         </ul>
 
-        <br />
-
       </div>
     );
   }
