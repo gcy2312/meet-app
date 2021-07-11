@@ -8,7 +8,6 @@
   box-sizing: border-box;
   background-color: #202933;
   color:white;
- 
 }
 
 ul {
@@ -53,6 +52,7 @@ input[type="number"] {
   max-width: 300px;
   margin: auto;
   position: relative;
+  height: auto;
 }
 
 .suggestions {
@@ -99,7 +99,7 @@ input[type="number"] {
 .details-btn {
   position: absolute;
   right: 5px;
-  bottom: 5px;
+  bottom: 3px;
   margin: 5px;
   /* border-radius: 4px; */
   outline: none;
@@ -112,10 +112,6 @@ input[type="number"] {
 #card-title{
   font-size: 22px;
 }
-#card-location{
-  padding: 10px;
-}
-
 
 #cityImg{
   padding: 3px;
@@ -141,8 +137,8 @@ input[type="number"] {
 }
 
 .numberOfEvents {
-  width: 200px;
-  /* margin: 20px auto; */
+  width: 150px;
+  top: 30px;
   text-align: center;
 }
 
