@@ -44,6 +44,7 @@ class App extends Component {
 
   async componentDidMount() {
     this.mounted = true;
+    const { numberDisplayed } = this.state;
     const accessToken = localStorage.getItem('access_token');   //get token from LS
     const isTokenValid = (await checkToken(accessToken)).error ? false :  //verify token
       true;
@@ -60,21 +61,6 @@ class App extends Component {
         }
       });
     }
-  }
-
-
-  componentDidMount() {
-    const { numberDisplayed } = this.state;
-    this.mounted = true;
-
-    getEvents().then((events) => {
-      if (this.mounted) {
-        this.setState({
-          events: events.slice(0, numberDisplayed),
-          locations: extractLocations(events)
-        });
-      }
-    });
   }
 
   componentWillUnmount() {
