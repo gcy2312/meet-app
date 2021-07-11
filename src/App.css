@@ -8,6 +8,7 @@
   box-sizing: border-box;
   background-color: #202933;
   color:white;
+ 
 }
 
 ul {
@@ -99,7 +100,7 @@ input[type="number"] {
   position: absolute;
   right: 5px;
   bottom: 5px;
-  /* padding: 5px 8px; */
+  margin: 5px;
   /* border-radius: 4px; */
   outline: none;
   cursor: pointer;
@@ -110,6 +111,9 @@ input[type="number"] {
 }
 #card-title{
   font-size: 22px;
+}
+#card-location{
+  padding: 10px;
 }
 
 
