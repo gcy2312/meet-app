@@ -49,14 +49,15 @@ class Event extends Component {
         <Card className="event-card" id="event-card">
           <Card.Title id="card-title">{event.summary}</Card.Title>
           <Card.Subtitle id="card-subtitle">Creator: {event.creator.email}</Card.Subtitle>
-          <Card.Text id="card-text">Start Time: {startEvent.toLocaleString()}(locale time)</Card.Text>
+          <Card.Text id="card-text">Start Time: {startEvent.toLocaleString()}(local time)</Card.Text>
           <Card.Text id="card-location">Location: {event.location}</Card.Text><br />
           {this.state.showMore === true && (
             <Card.Text id="card-details" className="EventDetails">{this.description(event)}</Card.Text>
           )}
           <br />
-
-          <Button variant="link" id="link" className="details-btn" onClick={() => { this.showMore() }}>{this.showText()}</Button>
+          <div className="py-3 d-flex flex-row-reverse align-items-center">
+            <Button variant="link" id="link" className="details-btn" onClick={() => { this.showMore() }}>{this.showText()}</Button>
+          </div>
 
         </Card>
 
