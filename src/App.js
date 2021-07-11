@@ -4,7 +4,9 @@ import './nprogress.css';
 import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
-import { extractLocations, getEvents } from './api';
+import WelcomeScreen from './WelcomeScreen';
+import { getEvents, extractLocations, checkToken, getAccessToken } from
+  './api';
 import { WarningAlert } from './Alert';
 
 import Row from 'react-bootstrap/Row';
@@ -16,6 +18,8 @@ class App extends Component {
     locations: [],
     numberDisplayed: 32,
     currentCity: "all",
+    networkStatus: navigator.onLine ? 'Online' : 'Offline',
+    showWelcomeScreen: undefined,
   }
 
   updateEvents = (location, numberDisplayed) => {
@@ -38,19 +42,31 @@ class App extends Component {
     this.updateEvents(currentCity, number);
   }
 
+  async componentDidMount() {
+    this.mounted = true;
+    const accessToken = localStorage.getItem('access_token');   //get token from LS
+    const isTokenValid = (await checkToken(accessToken)).error ? false :  //verify token
+      true;
+    const searchParams = new URLSearchParams(window.location.search);
+    const code = searchParams.get("code");
+    this.setState({ showWelcomeScreen: !(code || isTokenValid) });
+    if ((code || isTokenValid) && this.mounted) {
+      getEvents().then((events) => {
+        if (this.mounted) {
+          this.setState({
+            events: events.slice(0, numberDisplayed),
+            locations: extractLocations(events)
+          });
+        }
+      });
+    }
+  }
+
+
   componentDidMount() {
     const { numberDisplayed } = this.state;
     this.mounted = true;
 
-    if (!navigator.onLine) {
-      this.setState({
-        warningText: 'You are currently using app offline. Events may be out of date.',
-      });
-    } else {
-      this.setState({
-        warningText: '',
-      });
-    }
     getEvents().then((events) => {
       if (this.mounted) {
         this.setState({
@@ -66,12 +82,18 @@ class App extends Component {
   }
 
   render() {
+    if (this.state.showWelcomeScreen === undefined) return <div
+      className="App" />
+    const { networkStatus } = this.state;
     return (
       <div className="App">
+        <WarningAlert text={networkStatus === 'Offline'
+          ? 'App is running offline: data may be out of date'
+          : ''} />
 
         <h1>Meet Up</h1>
 
-        <WarningAlert text={this.warningText} />
+
 
         <CitySearch
           locations={this.state.locations}
@@ -84,6 +106,8 @@ class App extends Component {
         <EventList
           events={this.state.events} />
 
+        <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen}
+          getAccessToken={() => { getAccessToken() }} />
 
       </div>
 
