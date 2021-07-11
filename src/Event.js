@@ -50,7 +50,7 @@ class Event extends Component {
           <Card.Title id="card-title">{event.summary}</Card.Title>
           <Card.Subtitle id="card-subtitle">Creator: {event.creator.email}</Card.Subtitle>
           <Card.Text id="card-text">Start Time: {startEvent.toLocaleString()}(locale time)</Card.Text>
-          <Card.Text id="card-location">Location: {event.location}</Card.Text>
+          <Card.Text id="card-location">Location: {event.location}</Card.Text><br />
           {this.state.showMore === true && (
             <Card.Text id="card-details" className="EventDetails">{this.description(event)}</Card.Text>
           )}
