@@ -100,7 +100,7 @@ class App extends Component {
             <Col xs={12} md={12}>
               <br />
 
-              <h5 id="city-header">Check out upcoming Web Development events near you!</h5>
+              <h5 id="city-header">Check out upcoming Web Development events near you!!!</h5>
               <WarningAlert text={this.warningText} />
               <br />
 
