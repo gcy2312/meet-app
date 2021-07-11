@@ -15,4 +15,9 @@ code {
     monospace;
 }
 
+#welcome-header, #welcome-text{
+  color:#44ddd1;
+  font-weight: bold;
+}
+
 
