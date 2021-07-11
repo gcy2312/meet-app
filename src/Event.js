@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 
 class Event extends Component {
 
@@ -19,32 +17,48 @@ class Event extends Component {
   }
 
   description(event) {
-    return this.state.showMore ? event.description : "";
-  }
+    if (this.state.showMore === true) {
+      return (
+        <div className='event-details'>
+          <h6>About the event: </h6>
+          <p id='event-description'>
+            <em>{event.description}</em>
+          </p>
+          <a href={event.htmlLink}
+            color='secondary'
+            className='event-link'
+            target='_blank'
+            rel='noreferrer'>See event details on Google Calendar
+          </a>
+
+        </div>
+      );
+    } else {
+      return "";
+    }
+  };
 
   render() {
     const { event } = this.props;
+    const startEvent = new Date(event.start.dateTime);
+    const endEvent = new Date(event.end.dateTime);
 
     return (
       < div className="event mb-2" >
-        <Row className="justify-content-md-center">
-          <Col md={12}>
-            <Card>
-              <Card.Title>{event.summary}</Card.Title>
-              <Card.Subtitle><b>Creator: </b>{event.creator.email}</Card.Subtitle>
-              <Card.Text><b>Start Time: </b>{event.start.dateTime}</Card.Text>
-              <Card.Text><b>Location: </b>{event.location}</Card.Text>
-              {this.state.showMore === true && (
-                <Card.Text className="EventDetails">{this.description(event)}</Card.Text>
-              )}
-              <br />
 
+        <Card className="event-card" id="event-card">
+          <Card.Title id="card-title">{event.summary}</Card.Title>
+          <Card.Subtitle id="card-subtitle">Creator: {event.creator.email}</Card.Subtitle>
+          <Card.Text id="card-text">Start Time: {startEvent.toLocaleString()}(locale time)</Card.Text>
+          <Card.Text id="card-location">Location: {event.location}</Card.Text>
+          {this.state.showMore === true && (
+            <Card.Text id="card-details" className="EventDetails">{this.description(event)}</Card.Text>
+          )}
+          <br />
 
-              <Button variant="primary" className="details-btn" onClick={() => { this.showMore() }}>{this.showText()}</Button>
+          <Button variant="link" id="link" className="details-btn" onClick={() => { this.showMore() }}>{this.showText()}</Button>
 
-            </Card>
-          </Col>
-        </Row>
+        </Card>
 
       </div >
     );
