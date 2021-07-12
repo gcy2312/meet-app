@@ -49,16 +49,11 @@ export const getEvents = async () => {
   if (!navigator.onLine) {
     const data = localStorage.getItem('lastEvents');
     NProgress.done();
-<<<<<<< HEAD
     console.log(data);
     return {
       events: JSON.parse(data).events,
       locations: extractLocations(JSON.parse(data).events),
     };
-=======
-    console.log(events);
-    return events ? JSON.parse(events).events : [];
->>>>>>> parent of 8433a1c (return on if(!navigator.onLine))
   }
 
   const token = await getAccessToken();
