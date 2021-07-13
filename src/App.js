@@ -22,28 +22,8 @@ class App extends Component {
     locations: [],
     numberDisplayed: 32,
     currentCity: "all",
-    networkStatus: navigator.onLine ? 'Online' : 'Offline',
+    warningText: '',
     showWelcomeScreen: undefined,
-  }
-
-  updateEvents = (location, numberDisplayed) => {
-    getEvents().then((events) => {
-      const locationEvents = (location === 'all') ? events
-        :
-        events.filter((event) => event.location === location);
-      if (this.mounted) {
-        this.setState({
-          events: locationEvents.slice(0, numberDisplayed),
-          currentCity: location,
-        });
-      }
-    });
-  };
-
-  updateNumberOfEvents(number) {
-    this.setState({ numberDisplayed: number });
-    const { currentCity } = this.state;
-    this.updateEvents(currentCity, number);
   }
 
   async componentDidMount() {
@@ -56,15 +36,15 @@ class App extends Component {
     const code = searchParams.get("code");
     this.setState({ showWelcomeScreen: !(code || isTokenValid) });
 
-    // if (!navigator.onLine) {
-    //   this.setState({
-    //     warningText: 'You are currently using the app offline. Events may be out of date.'
-    //   });
-    // } else {
-    //   this.setState({
-    //     warningText: '',
-    //   });
-    // }
+    if (!navigator.onLine) {
+      this.setState({
+        warningText: 'You are currently using the app offline. Events may be out of date.'
+      });
+    } else {
+      this.setState({
+        warningText: '',
+      });
+    }
 
     if ((code || isTokenValid) && this.mounted) {
       getEvents().then((events) => {
@@ -82,16 +62,35 @@ class App extends Component {
     this.mounted = false;
   }
 
+  updateEvents = (location, numberDisplayed) => {
+    getEvents().then((events) => {
+      const locationEvents = (location === 'all')
+        ? events
+        : events.filter((event) => event.location === location);
+      if (this.mounted) {
+        this.setState({
+          events: locationEvents.slice(0, numberDisplayed),
+          currentCity: location,
+        });
+      }
+    });
+  };
+
+  updateNumberOfEvents(number) {
+    this.setState({ numberDisplayed: number });
+    const { currentCity } = this.state;
+    this.updateEvents(currentCity, number);
+  }
+
   render() {
-    const { networkStatus } = this.state;
     if (this.state.showWelcomeScreen === undefined) return <div
       className="App" />
 
     return (
       <div className="App">
 
-        <WarningAlert
-          text={networkStatus === 'Offline' ? 'App is running offline: data may not be updated' : ''}
+        <WarningAlert id="warning-text"
+          text={this.state.warningText}
         />
 
         <Container fluid>
