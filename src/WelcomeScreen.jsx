@@ -4,7 +4,7 @@ function WelcomeScreen(props) {
   return props.showWelcomeScreen ?
     (
       <div className="WelcomeScreen" align="center">
-        <h1 id="welcome-header">Welcome to DevCal</h1>
+        <h1 id="welcome-header">Welcome to MeetApp</h1>
         <br />
         <h4 id="welcome-text">
           Log in to see upcoming events around the world for

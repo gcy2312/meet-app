@@ -9,7 +9,7 @@ import { getEvents, extractLocations, checkToken, getAccessToken } from
   './api';
 import { WarningAlert } from './Alert';
 
-import logo from './assets/DevCalLogo.png';
+import logo from './assets/MeetAppLogo.png';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';

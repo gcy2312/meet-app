@@ -1,6 +1,6 @@
 {
-  "short_name": "DevCal",
-  "name": "DevCal React App",
+  "short_name": "MeetApp",
+  "name": "MeetApp React Application",
   "icons": [
     {
       "src": "favicon.ico",
