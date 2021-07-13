@@ -8,7 +8,8 @@ line-height: 40px;
 display: flexbox;
 position:fixed
 }
-.login-button {
+
+/* .login-button {
 color: #494949;
 text-transform: uppercase;
 text-decoration: none;
@@ -18,44 +19,43 @@ display: inline-block;
 transition: all 0.4s ease 0s;
 min-width: 10rem;
 margin: 1rem;
-}
+} */
 .google-btn {
-width: 184px;
-height: 42px;
+width: 230px;
+height: 60px;
 margin: 1rem;
 background-color: #202933;
 border-radius: 2px;
-box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+box-shadow: 0 3px 4px 0 #202933;
 }
 .google-btn:hover {
 box-shadow: 0 0 6px #202933;
-font-weight: bolder;
 }
 .google-btn:active {
 background: #202933;
-font-weight: bolder;
 }
 .google-icon-wrapper {
 position: absolute;
-/* display: inline; */
-margin-top: 5px;
-margin-left: -50px;
-width: 50px;
-height: 50px;
+margin-top: 1px;
+margin-left: 1px;
+width: 40px;
+height: 40px;
 border-radius: 2px;
 background-color: #202933;
 }
 .google-icon {
 position: absolute;
+display: block;
 margin-top: 11px;
-margin-left: 10px;
-width: 30px;
-height: 30px;
+right: 28px;
+top: 10px;
+width: 40px;
+height: 40px;
 }
 .btn-text {
 float: right;
 color: #fff;
-font-size: 14px;
+font-size: 18px;
 letter-spacing: 0.2px;
 font-family: "Roboto";
 background-color: #202933;
@@ -63,4 +63,5 @@ width: 80%;
 height: 100%;
 text-align: center;
 }
+
 
