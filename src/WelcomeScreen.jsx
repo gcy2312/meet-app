@@ -7,7 +7,7 @@ function WelcomeScreen(props) {
         <h1 id="welcome-header">Welcome to MeetApp</h1>
         <br />
         <h4 id="welcome-text">
-          Log in to see upcoming events around the world for
+          Check out upcoming events around the world for
           full-stack
           developers
         </h4>
