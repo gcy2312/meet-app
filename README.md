@@ -85,3 +85,6 @@ http-server (global)
 axios
 nprogress
 atatus-spa
+material-ui/core (+ peer dependencies)
+material-ui/icons
+react-router-dom
