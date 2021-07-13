@@ -13,7 +13,6 @@ import logo from './assets/DevCalLogo.png';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 
 class App extends Component {
@@ -23,6 +22,7 @@ class App extends Component {
     locations: [],
     numberDisplayed: 32,
     currentCity: "all",
+    networkStatus: navigator.onLine ? 'Online' : 'Offline',
     showWelcomeScreen: undefined,
   }
 
@@ -56,15 +56,15 @@ class App extends Component {
     const code = searchParams.get("code");
     this.setState({ showWelcomeScreen: !(code || isTokenValid) });
 
-    if (!navigator.onLine) {
-      this.setState({
-        warningText: 'You are currently using the app offline. Events may be out of date.'
-      });
-    } else {
-      this.setState({
-        warningText: '',
-      });
-    }
+    // if (!navigator.onLine) {
+    //   this.setState({
+    //     warningText: 'You are currently using the app offline. Events may be out of date.'
+    //   });
+    // } else {
+    //   this.setState({
+    //     warningText: '',
+    //   });
+    // }
 
     if ((code || isTokenValid) && this.mounted) {
       getEvents().then((events) => {
@@ -83,11 +83,16 @@ class App extends Component {
   }
 
   render() {
+    const { networkStatus } = this.state;
     if (this.state.showWelcomeScreen === undefined) return <div
       className="App" />
 
     return (
       <div className="App">
+
+        <WarningAlert
+          text={networkStatus === 'Offline' ? 'App is running offline: data may not be updated' : ''}
+        />
 
         <Container fluid>
           <Row className="justify-content-md-center">
@@ -101,7 +106,7 @@ class App extends Component {
               <br />
 
               <h5 id="city-header">Check out upcoming Web Development events near you!!!</h5>
-              <WarningAlert text={this.warningText} />
+
               <br />
 
               <CitySearch
