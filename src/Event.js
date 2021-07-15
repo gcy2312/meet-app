@@ -41,7 +41,6 @@ class Event extends Component {
   render() {
     const { event } = this.props;
     const startEvent = new Date(event.start.dateTime);
-    const endEvent = new Date(event.end.dateTime);
 
     return (
       < div className="event mb-2" >
