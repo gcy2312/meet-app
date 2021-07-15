@@ -4,16 +4,20 @@ import './nprogress.css';
 import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
+// import EventGenre from './data-visualization/EventGenre';
 import WelcomeScreen from './WelcomeScreen';
+import { WarningAlert } from './Alert';
+
 import { getEvents, extractLocations, checkToken, getAccessToken } from
   './api';
-import { WarningAlert } from './Alert';
 
 import logo from './assets/MeetAppLogo.png';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
+import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+
 
 class App extends Component {
 
@@ -82,15 +86,27 @@ class App extends Component {
     this.updateEvents(currentCity, number);
   }
 
+  getData = () => {
+    const { locations, events } = this.state;
+    const data = locations.map(location => {
+      const number = events.filter(event => event.location === location).length
+      const city = location.split(', ').shift()
+      return { city, number };
+    })
+    return data;
+  };
+
   render() {
-    if (this.state.showWelcomeScreen === undefined) return <div
+    const { locations, numberOfEvents, events, warningText, showWelcomeScreen } = this.state;
+
+    if (showWelcomeScreen === undefined) return <div
       className="App" />
 
     return (
       <div className="App">
 
         <WarningAlert id="warning-text"
-          text={this.state.warningText}
+          text={warningText}
         />
 
         <Container fluid>
@@ -109,7 +125,7 @@ class App extends Component {
               <br />
 
               <CitySearch
-                locations={this.state.locations}
+                locations={locations}
                 updateEvents={this.updateEvents}
                 updateNumberOfEvents={this.updateNumberOfEvents} />
 
@@ -117,16 +133,34 @@ class App extends Component {
                 updateNumberOfEvents={(e) => this.updateNumberOfEvents(e)} /><br />
 
             </Col>
+            <div>
+              <ResponsiveContainer height={300} >
+                <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+                  <CartesianGrid />
+                  <XAxis type="category" dataKey="city" name="city" />
+                  <YAxis
+                    allowDecimals={false}
+                    type="number"
+                    dataKey="number"
+                    name="number of events"
+                  />
+                  <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+                  <Scatter data={this.getData()} fill="#8884d8" />
+                </ScatterChart>
+              </ResponsiveContainer>
+            </div>
 
-            <div className="eventList-container h-75 overflow-scroll">
+            <div
+            // className="eventList-container h-75 overflow-scroll"
+            >
               <EventList
-                events={this.state.events} />
+                events={events} />
             </div>
           </Row>
 
         </Container>
 
-        <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen}
+        <WelcomeScreen showWelcomeScreen={showWelcomeScreen}
           getAccessToken={() => { getAccessToken() }} />
 
       </div >
