@@ -7,7 +7,7 @@ const EventGenre = ({ events }) => {
 
   useEffect(() => {
     const getData = () => {
-      const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'AngularJS'];
+      const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'AngularJS', 'Angular'];
       const data = genres.map((genre) => {
         const value = events.filter(({ summary }) =>
           summary
@@ -22,7 +22,7 @@ const EventGenre = ({ events }) => {
     setData(() => getData());
   }, [events]);
 
-  const chartColors = ['#44ddd1', '#eb85ee', '#9daee0', '#28857d', '#6e6089'];
+  const chartColors = ['#44ddd1', '#eb85ee', '#9daee0', '#28857d', '#6e6089', '#61b0c5'];
 
   return (
 
