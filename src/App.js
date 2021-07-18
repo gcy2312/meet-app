@@ -5,7 +5,7 @@ import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
 import EventGenre from './data-visualization/EventGenre';
-import WelcomeScreen from './WelcomeScreen';
+// import WelcomeScreen from './WelcomeScreen';
 import { WarningAlert } from './Alert';
 
 import { getEvents, extractLocations, checkToken, getAccessToken } from
@@ -26,16 +26,16 @@ class App extends Component {
     numberDisplayed: 32,
     currentCity: "all",
     warningText: '',
-    showWelcomeScreen: undefined,
+    // showWelcomeScreen: undefined,
   }
 
   async componentDidMount() {
-    const accessToken = localStorage.getItem('access_token');   //get token from LS
-    const isTokenValid = (await checkToken(accessToken)).error ? false :  //verify token
-      true;
-    const searchParams = new URLSearchParams(window.location.search);
-    const code = searchParams.get("code");
-    this.setState({ showWelcomeScreen: !(code || isTokenValid) });
+    // const accessToken = localStorage.getItem('access_token');   //get token from LS
+    // const isTokenValid = (await checkToken(accessToken)).error ? false :  //verify token
+    //   true;
+    // const searchParams = new URLSearchParams(window.location.search);
+    // const code = searchParams.get("code");
+    // this.setState({ showWelcomeScreen: !(code || isTokenValid) });
 
     if (!navigator.onLine) {
       this.setState({
@@ -47,7 +47,8 @@ class App extends Component {
       });
     }
 
-    if ((code || isTokenValid) && this.mounted) {
+    if (this.mounted) {
+      // if ((code || isTokenValid) && this.mounted) {
       this.updateEvents()
     }
     this.mounted = true;
@@ -105,10 +106,10 @@ class App extends Component {
   };
 
   render() {
-    const { locations, numberDisplayed, events, warningText, showWelcomeScreen } = this.state;
+    const { locations, numberDisplayed, events, warningText } = this.state;
 
-    if (showWelcomeScreen === undefined) return <div
-      className="App" />
+    // if (this.state.showWelcomeScreen === undefined) return <div
+    //   className="App" />
 
     return (
       <div className="App">
@@ -179,8 +180,8 @@ class App extends Component {
 
         </Container>
 
-        <WelcomeScreen showWelcomeScreen={showWelcomeScreen}
-          getAccessToken={() => { getAccessToken() }} />
+        {/* <WelcomeScreen showWelcomeScreen={showWelcomeScreen}
+          getAccessToken={() => { getAccessToken() }} /> */}
 
       </div >
 
