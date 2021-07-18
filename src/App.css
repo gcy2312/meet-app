@@ -13,7 +13,11 @@
 .logo-web{
   width: 40%;
   height: auto;
+  max-width: 450px;
+  min-width: 160px;
+  max-height: 200px;
   align-self: center;
+  padding-top: 0px;
 }
 
 ul {
@@ -87,7 +91,9 @@ input[type="number"] {
 .suggestions > li:hover {
   font-weight:bolder;
 }
-
+.eventList-container{
+  max-width: 1500px;
+}
 .event {
   padding: 15px 15px 15px;
   margin-bottom: 10px;
