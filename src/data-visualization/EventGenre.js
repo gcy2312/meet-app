@@ -11,6 +11,10 @@ const EventGenre = ({ events }) => {
       const data = genres.map((genre) => {
         const value = events.filter(({ summary }) =>
           summary
+            .replace('.js', '') //Node.js 
+            .replace(',', '') //jQuery, 
+            .replace('!!', '') //JavaScript!! 
+            .replace('-Remote', '') //AngularJS-Remote
             .split(' ')
             .includes(genre),
         ).length;
