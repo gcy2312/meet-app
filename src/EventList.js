@@ -10,7 +10,7 @@ class EventList extends Component {
         <ul className="EventList">
           <Grid container spacing={2}>
             {events.map((event) => (
-              <Grid key={event.id} item xs={12} sm={12} md={6}>
+              <Grid key={event.id} item xs={12} sm={12} md={6} xl={4}>
                 <li key={event.id}>
                   <Event event={event} />
                 </li>
