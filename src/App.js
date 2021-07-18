@@ -30,8 +30,6 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    // this.mounted = true;
-    // const { numberDisplayed } = this.state;
     const accessToken = localStorage.getItem('access_token');   //get token from LS
     const isTokenValid = (await checkToken(accessToken)).error ? false :  //verify token
       true;
@@ -66,26 +64,6 @@ class App extends Component {
   componentWillUnmount() {
     this.mounted = false;
   }
-
-  // updateEvents = (location, numberDisplayed) => {
-  //   getEvents().then((events) => {
-  //     const locationEvents = (location === 'all')
-  //       ? events
-  //       : events.filter((event) => event.location === location);
-  //     if (this.mounted) {
-  //       this.setState({
-  //         events: locationEvents.slice(0, numberDisplayed),
-  //         currentCity: location,
-  //       });
-  //     }
-  //   });
-  // };
-
-  // updateNumberOfEvents(number) {
-  //   this.setState({ numberDisplayed: number });
-  //   // const { currentCity } = this.state;
-  //   this.updateEvents('', number);
-  // }
 
   updateEvents = (location, eventCount) => {
     const { currentCity, numberDisplayed } = this.state;
@@ -157,12 +135,10 @@ class App extends Component {
               <CitySearch
                 locations={locations}
                 updateEvents={this.updateEvents}
-              // updateNumberOfEvents={this.updateNumberOfEvents} 
               />
 
               <NumberOfEvents
                 numberDisplayed={numberDisplayed}
-                // updateNumberOfEvents={(e) => this.updateNumberOfEvents(e)} 
                 updateEvents={this.updateEvents}
               /><br />
 
@@ -210,7 +186,6 @@ class App extends Component {
 
     );
   }
-
 }
 
 export default App;

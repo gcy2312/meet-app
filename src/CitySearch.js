@@ -16,7 +16,6 @@ class CitySearch extends Component {
 
   handleInputChanged = (event) => {
     const value = event.target.value;
-    // this.setState({ showSuggestions: true });
     const suggestions = this.props.locations.filter((location) => {
       return location.toUpperCase().indexOf(value.toUpperCase()) > -1;
     });
@@ -61,7 +60,7 @@ class CitySearch extends Component {
               height="35"
               fluid="true"
             />
-            {/* <EditLocationIcon /> */}
+
           </InputGroup.Prepend>
           <FormControl
             placeholder="Filter events by city"
@@ -71,8 +70,6 @@ class CitySearch extends Component {
             className="city"
             value={this.state.query}
             onChange={this.handleInputChanged}
-          // onFocus={() => { this.setState({ showSuggestions: true }) }}
-
           />
         </InputGroup>
 
