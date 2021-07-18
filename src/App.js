@@ -30,8 +30,8 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    this.mounted = true;
-    const { numberDisplayed } = this.state;
+    // this.mounted = true;
+    // const { numberDisplayed } = this.state;
     const accessToken = localStorage.getItem('access_token');   //get token from LS
     const isTokenValid = (await checkToken(accessToken)).error ? false :  //verify token
       true;
@@ -50,39 +50,70 @@ class App extends Component {
     }
 
     if ((code || isTokenValid) && this.mounted) {
-      getEvents().then((events) => {
-        if (this.mounted) {
-          this.setState({
-            events: events.slice(0, numberDisplayed),
-            locations: extractLocations(events)
-          });
-        }
-      });
+      this.updateEvents()
     }
+    this.mounted = true;
+    getEvents().then((events) => {
+      if (this.mounted) {
+        this.setState({
+          events,
+          locations: extractLocations(events)
+        });
+      }
+    });
   }
 
   componentWillUnmount() {
     this.mounted = false;
   }
 
-  updateEvents = (location, numberDisplayed) => {
-    getEvents().then((events) => {
-      const locationEvents = (location === 'all')
-        ? events
-        : events.filter((event) => event.location === location);
-      if (this.mounted) {
+  // updateEvents = (location, numberDisplayed) => {
+  //   getEvents().then((events) => {
+  //     const locationEvents = (location === 'all')
+  //       ? events
+  //       : events.filter((event) => event.location === location);
+  //     if (this.mounted) {
+  //       this.setState({
+  //         events: locationEvents.slice(0, numberDisplayed),
+  //         currentCity: location,
+  //       });
+  //     }
+  //   });
+  // };
+
+  // updateNumberOfEvents(number) {
+  //   this.setState({ numberDisplayed: number });
+  //   // const { currentCity } = this.state;
+  //   this.updateEvents('', number);
+  // }
+
+  updateEvents = (location, eventCount) => {
+    const { currentCity, numberDisplayed } = this.state;
+    if (location) {
+      getEvents().then((events) => {
+        const locationEvents =
+          location === "all"
+            ? events
+            : events.filter((event) => event.location === location);
+        const filteredEvents = locationEvents.slice(0, numberDisplayed);
         this.setState({
-          events: locationEvents.slice(0, numberDisplayed),
+          events: filteredEvents,
           currentCity: location,
         });
-      }
-    });
-  };
-
-  updateNumberOfEvents(number) {
-    this.setState({ numberDisplayed: number });
-    const { currentCity } = this.state;
-    this.updateEvents(currentCity, number);
+      });
+    } else {
+      getEvents().then((events) => {
+        const locationEvents =
+          currentCity === "all"
+            ? events
+            : events.filter((event) => event.location === currentCity);
+        const filteredEvents = locationEvents.slice(0, eventCount);
+        this.setState({
+          events: filteredEvents,
+          numberDisplayed: eventCount,
+        });
+      });
+    }
   }
 
   getData = () => {
@@ -96,7 +127,7 @@ class App extends Component {
   };
 
   render() {
-    const { locations, numberOfEvents, events, warningText, showWelcomeScreen } = this.state;
+    const { locations, numberDisplayed, events, warningText, showWelcomeScreen } = this.state;
 
     if (showWelcomeScreen === undefined) return <div
       className="App" />
@@ -119,17 +150,21 @@ class App extends Component {
             <Col xs={12} md={12}>
               <br />
 
-              <h5 id="city-header">Check out upcoming Web Development events near you!!!</h5>
+              <h6 id="city-header">Check out upcoming Web Development events near you!!!</h6>
 
               <br />
 
               <CitySearch
                 locations={locations}
                 updateEvents={this.updateEvents}
-                updateNumberOfEvents={this.updateNumberOfEvents} />
+              // updateNumberOfEvents={this.updateNumberOfEvents} 
+              />
 
               <NumberOfEvents
-                updateNumberOfEvents={(e) => this.updateNumberOfEvents(e)} /><br />
+                numberDisplayed={numberDisplayed}
+                // updateNumberOfEvents={(e) => this.updateNumberOfEvents(e)} 
+                updateEvents={this.updateEvents}
+              /><br />
 
             </Col>
           </Row>
@@ -137,7 +172,7 @@ class App extends Component {
 
           <div className="data-vis-wrapper">
             <ResponsiveContainer height={300} >
-              <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+              <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
                 <CartesianGrid />
                 <XAxis type="category" dataKey="city" name="city" />
                 <YAxis
